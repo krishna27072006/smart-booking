@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Appointment Booking System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">📅 Smart Booking</div>
+            <ul class="nav-menu">
+                <li><a href="#" onclick="showPage('home'); return false;">Home</a></li>
+                <li><a href="#" onclick="showPage('services'); return false;">Services</a></li>
+                <li><a href="#" onclick="showPage('my-bookings'); return false;">My Bookings</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Smart Appointment Booking System</h1>
+                    <p>Book your appointments easily, prevent double bookings, and rate services based on punctuality</p>
+                    <button class="btn btn-primary" onclick="showPage('services')">Get Started</button>
+                </div>
+                <div class="hero-image">
+                    <img src="booking-hero.png" alt="Booking System" onerror="this.style.display='none'">
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2>Key Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📅</div>
+                        <h3>Easy Booking</h3>
+                        <p>Browse available time slots and book appointments instantly</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🚫</div>
+                        <h3>No Double Bookings</h3>
+                        <p>System prevents double bookings automatically</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⭐</div>
+                        <h3>Rate Services</h3>
+                        <p>Rate punctuality and service quality after appointments</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Manage Bookings</h3>
+                        <p>View and cancel your bookings anytime</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Services Page -->
+    <div id="services" class="page">
+        <div class="container">
+            <h1>Our Services</h1>
+            <p class="subtitle">Choose from our range of professional services</p>
+
+            <!-- ⬇️ card container – JS injects provider, map URL here -->
+            <div id="services-grid" class="services-grid"></div>
+        </div>
+    </div>
+
+    <!-- Book Appointment Page -->
+    <div id="book" class="page">
+        <div class="container">
+            <h1>Book an Appointment</h1>
+            
+            <!-- Service Selection -->
+            <div class="booking-section">
+                <h3>1. Select Service</h3>
+                <select id="service-select" class="form-control" onchange="loadTimeSlots()">
+                    <option value="">Choose a service...</option>
+                </select>
+                <div id="selected-service-info" class="service-info"></div>
+            </div>
+
+            <!-- Date Selection -->
+            <div class="booking-section">
+                <h3>2. Select Date</h3>
+                <input type="date" id="date-select" class="form-control" onchange="loadTimeSlots()">
+            </div>
+
+            <!-- Time Slot Selection -->
+            <div class="booking-section">
+                <h3>3. Select Time Slot</h3>
+                <div id="time-slots-grid" class="time-slots-grid"></div>
+            </div>
+
+            <!-- Customer Information -->
+            <div class="booking-section" id="customer-form-section" style="display: none;">
+                <h3>4. Your Information</h3>
+                <form id="booking-form" onsubmit="submitBooking(event)">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="customer-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="customer-email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone *</label>
+                        <input type="tel" id="customer-phone" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Notes</label>
+                        <textarea id="customer-notes" class="form-control" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Confirm Booking</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Bookings Page -->
+    <div id="my-bookings" class="page">
+      <div class="container">
+        <h1>My Bookings</h1>
+
+        <div id="bookings-list" class="bookings-list"></div>
+
+        <div class="tabs">
+          <button class="tab-btn active" onclick="filterBookings('all')">All</button>
+          <button class="tab-btn" onclick="filterBookings('upcoming')">Upcoming</button>
+          <button class="tab-btn" onclick="filterBookings('completed')">Completed</button>
+          <button class="tab-btn" onclick="filterBookings('cancelled')">Cancelled</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⭐ Rating Modal -->
+    <div id="rating-modal" class="modal">
+      <div class="modal-content rating-box">
+        <span class="close" onclick="closeRatingModal()">&times;</span>
+        <h2>Rate Your Appointment</h2>
+
+        <form id="rating-form" onsubmit="submitRating(event)">
+          <input type="hidden" id="rating-booking-id">
+
+          <label>Overall Rating</label>
+          <div class="star-rating" id="overall-rating"></div>
+
+          <textarea id="rating-comment" placeholder="Add a comment (optional)"></textarea>
+
+          <button type="submit" class="btn-primary">Submit Rating</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSuccessModal()">&times;</span>
+            <div class="success-icon">✓</div>
+            <h2 id="success-title">Success!</h2>
+            <p id="success-message"></p>
+            <button class="btn btn-primary" onclick="closeSuccessModal()">OK</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

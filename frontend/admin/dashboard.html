@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard</title>
+
+  <!-- SAME THEME AS BEFORE -->
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">👑 Admin Panel</div>
+
+      <button class="btn btn-secondary" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+
+  <!-- ===== DASHBOARD CONTENT ===== -->
+  <div class="container page active">
+    
+    <h1>Welcome Admin 👋</h1>
+    <p id="admin-info" class="subtitle"></p>
+
+    <!-- ===== DASHBOARD BUTTONS ===== -->
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <h3>🛠 Manage Services</h3>
+        <p>Add and view services</p>
+        <a href="services.html" class="btn btn-primary">Go</a>
+      </div>
+
+      <div class="feature-card">
+        <h3>⏰ Time Slots</h3>
+        <p>Create slots for specific dates</p>
+        <a href="slots.html" class="btn btn-primary">Go</a>
+      </div>
+
+      <div class="feature-card">
+        <h3>📖 Bookings</h3>
+        <p>View & manage bookings</p>
+        <a href="bookings.html" class="btn btn-primary">Go</a>
+      </div>
+
+      <div class="feature-card">
+        <h3>⭐ Ratings</h3>
+        <p>Customer feedback & reviews</p>
+        <a href="ratings.html" class="btn btn-primary">Go</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- AUTH + INFO ONLY -->
+   <script src="admin-common.js"></script>  
+  <script src="dashboard.js"></script>
+</body>
+</html>

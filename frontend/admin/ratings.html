@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin – Ratings</title>
+
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">👑 Admin Panel</div>
+
+      <ul class="nav-menu">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="slots.html">Time Slots</a></li>
+        <li><a href="bookings.html">Bookings</a></li>
+        <li><a href="ratings.html" class="active">Ratings</a></li>
+      </ul>
+
+      <button class="btn btn-secondary" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="container page active">
+    <h1>Service Ratings</h1>
+    <p class="subtitle">Customer feedback and service performance</p>
+
+    <div id="ratings-container">
+      <p>Loading ratings...</p>
+    </div>
+  </div>
+
+  <!-- ✅ SCRIPT ORDER MATTERS -->
+  <script src="admin-common.js"></script>  
+  <script src="ratings.js"></script>
+
+</body>
+</html>

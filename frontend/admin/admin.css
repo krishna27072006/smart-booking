@@ -1,0 +1,176 @@
+/* =======================================
+   BASE – Matches Client Theme
+======================================= */
+body {
+  background: #f6f7fb;
+}
+
+.container {
+  padding: 20px;
+}
+
+/* =======================================
+   NAVBAR
+======================================= */
+.nav {
+  background: #4f46e5;
+  color: white;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav a {
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+}
+
+.nav a.active {
+  text-decoration: underline;
+}
+
+.btn-logout {
+  background: white;
+  color: #4f46e5;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Navbar button */
+.navbar .btn {
+  margin-left: 1rem;
+}
+
+/* =======================================
+   CARDS & GRID
+======================================= */
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.feature-card a.btn {
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+/* =======================================
+   ADMIN DASHBOARD BACKGROUND (ANIMATED)
+======================================= */
+.animated-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at 20% 20%, #4f46e5 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, #ec4899 0%, transparent 50%);
+  filter: blur(80px);
+  animation: float 8s infinite alternate ease-in-out;
+  opacity: 0.55;  /* softer effect */
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); opacity: 0.4; }
+  100% { transform: translateY(40px); opacity: 0.8; }
+}
+
+.admin-dashboard {
+  position: relative;
+  background: white;
+  overflow: hidden;
+  min-height: 80vh;       /* important */
+  padding: 35px;          /* spacing */
+  padding-bottom: 100px;  /* keeps glow behind & not overlapping footer */
+  border-radius: 12px;    /* optional – premium look */
+  box-shadow: 0 0 30px rgba(0,0,0,0.05);
+}
+
+/* =======================================
+   RESPONSIVE
+======================================= */
+@media(max-width: 768px) {
+  .animated-bg {
+    display: none; /* hide animation on very small screens */
+  }
+}
+
+
+/* ===== SLOT PAGE UI FIX ===== */
+.slot-wrapper {
+  max-width: 600px;
+  margin: 2.5rem auto;
+  text-align: center;
+}
+
+.slot-card {
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 14px;
+  box-shadow: 0 5px 22px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.slot-card select,
+.slot-card input[type="date"],
+.slot-card input[type="time"] {
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+#slots-container .form-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 6px 0;
+}
+
+#slots-container input {
+  width: 45%;
+}
+
+.slot-input-row {
+  margin: 10px 0;
+}
+
+.slot-label {
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.slot-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.slot-row input[type="time"] {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.dash {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 5px;
+}
