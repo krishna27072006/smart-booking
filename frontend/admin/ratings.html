@@ -1,43 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin – Ratings</title>
-
-  <link rel="stylesheet" href="../styles.css">
-  <link rel="stylesheet" href="admin.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ratings - Admin</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="admin.css">
 </head>
-
 <body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-brand"><span class="admin-crown">👑</span> Admin Panel</div>
+        <ul class="sidebar-menu">
+            <li>
+                <a href="dashboard.html">
+                    <span class="icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="services.html">
+                    <span class="icon">🛠</span>
+                    <span>Services</span>
+                </a>
+            </li>
+            <li>
+                <a href="slots.html">
+                    <span class="icon">⏰</span>
+                    <span>Time Slots</span>
+                </a>
+            </li>
+            <li>
+                <a href="bookings.html">
+                    <span class="icon">📖</span>
+                    <span>Bookings</span>
+                </a>
+            </li>
+            <li>
+                <a href="ratings.html" class="active">
+                    <span class="icon">⭐</span>
+                    <span>Ratings</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="logout(); return false;">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
 
-  <nav class="navbar">
-    <div class="container">
-      <div class="nav-brand">👑 Admin Panel</div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <div class="topbar">
+            <div class="topbar-greeting">
+                <h2>Customer Ratings ⭐</h2>
+                <p>Feedback and service performance</p>
+            </div>
+            <div class="topbar-actions">
+                <div class="user-avatar" id="user-avatar">A</div>
+            </div>
+        </div>
 
-      <ul class="nav-menu">
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="slots.html">Time Slots</a></li>
-        <li><a href="bookings.html">Bookings</a></li>
-        <li><a href="ratings.html" class="active">Ratings</a></li>
-      </ul>
+        <!-- Ratings Content -->
+        <div class="page active">
+            <h1 class="page-title">Service Ratings & Reviews</h1>
+            <p class="page-subtitle">Track customer feedback and improve service quality</p>
 
-      <button class="btn btn-secondary" onclick="logout()">Logout</button>
-    </div>
-  </nav>
+            <!-- Ratings Container -->
+            <div id="ratings-container">
+                <div class="admin-loading">
+                    <div class="admin-spinner"></div>
+                    <p>Loading ratings...</p>
+                </div>
+            </div>
+        </div>
+    </main>
 
-  <div class="container page active">
-    <h1>Service Ratings</h1>
-    <p class="subtitle">Customer feedback and service performance</p>
-
-    <div id="ratings-container">
-      <p>Loading ratings...</p>
-    </div>
-  </div>
-
-  <!-- ✅ SCRIPT ORDER MATTERS -->
-  <script src="admin-common.js"></script>  
-  <script src="ratings.js"></script>
-
+    <script src="admin-common.js"></script>
+    <script src="ratings.js"></script>
 </body>
 </html>

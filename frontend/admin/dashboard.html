@@ -1,64 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Admin Dashboard</title>
-
-  <!-- SAME THEME AS BEFORE -->
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="admin.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Smart Booking</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="admin.css">
 </head>
-
 <body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand"><span class="admin-crown">👑</span> Admin Panel</div>
+        <ul class="sidebar-menu">
+            <li>
+                <a href="dashboard.html" class="active">
+                    <span class="icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="services.html">
+                    <span class="icon">🛠</span>
+                    <span>Services</span>
+                </a>
+            </li>
+            <li>
+                <a href="slots.html">
+                    <span class="icon">⏰</span>
+                    <span>Time Slots</span>
+                </a>
+            </li>
+            <li>
+                <a href="bookings.html">
+                    <span class="icon">📖</span>
+                    <span>Bookings</span>
+                </a>
+            </li>
+            <li>
+                <a href="ratings.html">
+                    <span class="icon">⭐</span>
+                    <span>Ratings</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="logout(); return false;">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
 
-  <!-- ===== NAVBAR ===== -->
-  <nav class="navbar">
-    <div class="container">
-      <div class="nav-brand">👑 Admin Panel</div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <div class="topbar">
+            <div class="topbar-greeting">
+                <h2 id="greeting-text">Welcome Admin! 👑</h2>
+                <p id="admin-email">Loading...</p>
+            </div>
+            <div class="topbar-actions">
+                <div class="user-avatar" id="user-avatar">A</div>
+            </div>
+        </div>
 
-      <button class="btn btn-secondary" onclick="logout()">Logout</button>
-    </div>
-  </nav>
+        <!-- Dashboard Content -->
+        <div class="page active">
+            <!-- Hero Section -->
+            <div class="hero-dashboard">
+                <div class="hero-content">
+                    <h1>Admin Dashboard</h1>
+                    <p id="admin-provider">Manage your booking system efficiently</p>
+                </div>
+            </div>
 
+            <!-- Quick Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🛠</div>
+                    <div class="stat-value" id="total-services">-</div>
+                    <div class="stat-label">Total Services</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📖</div>
+                    <div class="stat-value" id="total-bookings">-</div>
+                    <div class="stat-label">Total Bookings</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏳</div>
+                    <div class="stat-value" id="pending-bookings">-</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-value" id="avg-rating">-</div>
+                    <div class="stat-label">Avg Rating</div>
+                </div>
+            </div>
 
-  <!-- ===== DASHBOARD CONTENT ===== -->
-  <div class="container page active">
-    
-    <h1>Welcome Admin 👋</h1>
-    <p id="admin-info" class="subtitle"></p>
+            <!-- Quick Actions -->
+            <div class="admin-section">
+                <h2 class="admin-section-title">Quick Actions</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🛠</div>
+                        <h3>Manage Services</h3>
+                        <p>Add, edit, and manage your service offerings</p>
+                        <button class="btn btn-primary" onclick="window.location.href='services.html'">
+                            Go to Services →
+                        </button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⏰</div>
+                        <h3>Create Time Slots</h3>
+                        <p>Set up available time slots for bookings</p>
+                        <button class="btn btn-primary" onclick="window.location.href='slots.html'">
+                            Manage Slots →
+                        </button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📖</div>
+                        <h3>View Bookings</h3>
+                        <p>Track and manage all customer bookings</p>
+                        <button class="btn btn-primary" onclick="window.location.href='bookings.html'">
+                            View Bookings →
+                        </button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⭐</div>
+                        <h3>Customer Ratings</h3>
+                        <p>Review feedback and service ratings</p>
+                        <button class="btn btn-primary" onclick="window.location.href='ratings.html'">
+                            View Ratings →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
-    <!-- ===== DASHBOARD BUTTONS ===== -->
-    <div class="features-grid">
-
-      <div class="feature-card">
-        <h3>🛠 Manage Services</h3>
-        <p>Add and view services</p>
-        <a href="services.html" class="btn btn-primary">Go</a>
-      </div>
-
-      <div class="feature-card">
-        <h3>⏰ Time Slots</h3>
-        <p>Create slots for specific dates</p>
-        <a href="slots.html" class="btn btn-primary">Go</a>
-      </div>
-
-      <div class="feature-card">
-        <h3>📖 Bookings</h3>
-        <p>View & manage bookings</p>
-        <a href="bookings.html" class="btn btn-primary">Go</a>
-      </div>
-
-      <div class="feature-card">
-        <h3>⭐ Ratings</h3>
-        <p>Customer feedback & reviews</p>
-        <a href="ratings.html" class="btn btn-primary">Go</a>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- AUTH + INFO ONLY -->
-   <script src="admin-common.js"></script>  
-  <script src="dashboard.js"></script>
+    <script src="admin-common.js"></script>
+    <script src="dashboard.js"></script>
 </body>
 </html>

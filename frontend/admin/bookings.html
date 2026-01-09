@@ -1,44 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Admin – Bookings</title>
-
-  <!-- Client theme -->
-  <link rel="stylesheet" href="../styles.css" />
-  <!-- Admin overrides -->
-  <link rel="stylesheet" href="admin.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings - Admin</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="admin.css">
 </head>
-
 <body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-brand"><span class="admin-crown">👑</span> Admin Panel</div>
+        <ul class="sidebar-menu">
+            <li>
+                <a href="dashboard.html">
+                    <span class="icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="services.html">
+                    <span class="icon">🛠</span>
+                    <span>Services</span>
+                </a>
+            </li>
+            <li>
+                <a href="slots.html">
+                    <span class="icon">⏰</span>
+                    <span>Time Slots</span>
+                </a>
+            </li>
+            <li>
+                <a href="bookings.html" class="active">
+                    <span class="icon">📖</span>
+                    <span>Bookings</span>
+                </a>
+            </li>
+            <li>
+                <a href="ratings.html">
+                    <span class="icon">⭐</span>
+                    <span>Ratings</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="logout(); return false;">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
 
-  <!-- ===== NAVBAR ===== -->
-  <nav class="navbar">
-    <div class="container">
-      <div class="nav-brand">👑 Admin Panel</div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <div class="topbar">
+            <div class="topbar-greeting">
+                <h2>Bookings Management 📖</h2>
+                <p>Track and manage customer appointments</p>
+            </div>
+            <div class="topbar-actions">
+                <div class="user-avatar" id="user-avatar">A</div>
+            </div>
+        </div>
 
-      <ul class="nav-menu">
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="slots.html">Time Slots</a></li>
-        <li><a href="bookings.html" class="active">Bookings</a></li>
-        <li><a href="ratings.html">Ratings</a></li>
-      </ul>
+        <!-- Bookings Content -->
+        <div class="page active">
+            <h1 class="page-title">All Bookings</h1>
+            <p class="page-subtitle">View and manage customer appointments</p>
 
-      <button class="btn btn-secondary" onclick="logout()">Logout</button>
-    </div>
-  </nav>
+            <!-- Filter Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="filterByStatus('all')">All</button>
+                <button class="tab-btn" onclick="filterByStatus('pending')">Pending</button>
+                <button class="tab-btn" onclick="filterByStatus('completed')">Completed</button>
+                <button class="tab-btn" onclick="filterByStatus('cancelled')">Cancelled</button>
+            </div>
 
-  <!-- ===== CONTENT ===== -->
-  <div class="container page active">
-    <h1>Manage Bookings</h1>
-    <p class="subtitle">View and manage bookings for your services</p>
+            <!-- Bookings List -->
+            <div id="admin-bookings">
+                <div class="admin-loading">
+                    <div class="admin-spinner"></div>
+                    <p>Loading bookings...</p>
+                </div>
+            </div>
+        </div>
+    </main>
 
-    <div id="admin-bookings">
-      <p>Loading bookings...</p>
-    </div>
-  </div>
-  <script src="admin-common.js"></script>  
-  <script src="bookings.js"></script>
+    <script src="admin-common.js"></script>
+    <script src="bookings.js"></script>
 </body>
 </html>

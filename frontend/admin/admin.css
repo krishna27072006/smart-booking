@@ -1,176 +1,471 @@
-/* =======================================
-   BASE – Matches Client Theme
-======================================= */
-body {
-  background: #f6f7fb;
+/* ============================================
+   ADMIN PANEL - DARK THEME
+   Shares same design system as client side
+   ============================================ */
+
+/* Import base dark theme styles from parent */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Admin-specific color overrides */
+:root {
+    --admin-accent: #f59e0b; /* Orange for admin to differentiate */
+    --admin-accent-secondary: #fb923c;
 }
 
-.container {
-  padding: 20px;
+/* Admin badge/crown styling */
+.admin-crown {
+    display: inline-block;
+    animation: crownFloat 3s ease-in-out infinite;
 }
 
-/* =======================================
-   NAVBAR
-======================================= */
-.nav {
-  background: #4f46e5;
-  color: white;
-  padding: 12px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+@keyframes crownFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(5deg); }
 }
 
-.nav a {
-  color: white;
-  margin-right: 15px;
-  text-decoration: none;
+/* Admin-specific card styling */
+.admin-card {
+    background: rgba(26, 31, 58, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
 }
 
-.nav a.active {
-  text-decoration: underline;
+.admin-card:hover {
+    border-color: var(--admin-accent);
+    box-shadow: 0 8px 32px rgba(245, 158, 11, 0.2);
 }
 
-.btn-logout {
-  background: white;
-  color: #4f46e5;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
+/* Form styling specific to admin */
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* Navbar button */
-.navbar .btn {
-  margin-left: 1rem;
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(30, 33, 57, 0.8);
+    border: 2px solid rgba(148, 163, 184, 0.1);
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
 }
 
-/* =======================================
-   CARDS & GRID
-======================================= */
-.card {
-  background: white;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+    outline: none;
+    border-color: var(--admin-accent);
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1);
+    background: rgba(30, 33, 57, 1);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 15px;
+.admin-form input::placeholder,
+.admin-form textarea::placeholder {
+    color: #64748b;
 }
 
-.feature-card a.btn {
-  margin-top: 1rem;
-  display: inline-block;
+/* Service list grid */
+.admin-services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
 }
 
-/* =======================================
-   ADMIN DASHBOARD BACKGROUND (ANIMATED)
-======================================= */
-.animated-bg {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(circle at 20% 20%, #4f46e5 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, #ec4899 0%, transparent 50%);
-  filter: blur(80px);
-  animation: float 8s infinite alternate ease-in-out;
-  opacity: 0.55;  /* softer effect */
+.admin-service-item {
+    background: rgba(30, 33, 57, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
 }
 
-@keyframes float {
-  0% { transform: translateY(0px); opacity: 0.4; }
-  100% { transform: translateY(40px); opacity: 0.8; }
+.admin-service-item:hover {
+    transform: translateY(-4px);
+    border-color: var(--admin-accent);
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.2);
 }
 
-.admin-dashboard {
-  position: relative;
-  background: white;
-  overflow: hidden;
-  min-height: 80vh;       /* important */
-  padding: 35px;          /* spacing */
-  padding-bottom: 100px;  /* keeps glow behind & not overlapping footer */
-  border-radius: 12px;    /* optional – premium look */
-  box-shadow: 0 0 30px rgba(0,0,0,0.05);
+.admin-service-item h4 {
+    color: #ffffff;
+    margin-bottom: 12px;
+    font-size: 18px;
 }
 
-/* =======================================
-   RESPONSIVE
-======================================= */
-@media(max-width: 768px) {
-  .animated-bg {
-    display: none; /* hide animation on very small screens */
-  }
+.admin-service-item .price {
+    color: var(--admin-accent);
+    font-size: 24px;
+    font-weight: 700;
 }
 
-
-/* ===== SLOT PAGE UI FIX ===== */
-.slot-wrapper {
-  max-width: 600px;
-  margin: 2.5rem auto;
-  text-align: center;
+/* Booking management cards */
+.admin-booking-card {
+    background: rgba(30, 33, 57, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-left: 4px solid var(--admin-accent);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
 }
 
-.slot-card {
-  background: #ffffff;
-  padding: 28px;
-  border-radius: 14px;
-  box-shadow: 0 5px 22px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.admin-booking-card:hover {
+    transform: translateX(4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-.slot-card select,
-.slot-card input[type="date"],
-.slot-card input[type="time"] {
-  padding: 12px;
-  width: 100%;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
-  font-size: 14px;
+.admin-booking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 16px;
 }
 
-#slots-container .form-group {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  padding: 6px 0;
+.admin-booking-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
 }
 
-#slots-container input {
-  width: 45%;
+.admin-booking-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
+.admin-booking-detail label {
+    font-size: 12px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.admin-booking-detail span {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* Slot input styling */
 .slot-input-row {
-  margin: 10px 0;
+    background: rgba(30, 33, 57, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
 }
 
 .slot-label {
-  font-weight: 600;
-  margin-bottom: 4px;
-  display: block;
+    font-weight: 700;
+    color: var(--admin-accent);
+    margin-bottom: 12px;
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
 .slot-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
 .slot-row input[type="time"] {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+    flex: 1;
+    padding: 12px 16px;
+    background: rgba(30, 33, 57, 0.8);
+    border: 2px solid rgba(148, 163, 184, 0.1);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.slot-row input[type="time"]:focus {
+    outline: none;
+    border-color: var(--admin-accent);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
 }
 
 .dash {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 0 5px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #94a3b8;
+}
+
+/* Rating display cards */
+.admin-rating-card {
+    background: rgba(30, 33, 57, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.rating-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.rating-header h4 {
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.average-rating {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, var(--admin-accent), var(--admin-accent-secondary));
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.rating-item {
+    padding: 16px;
+    background: rgba(21, 25, 50, 0.6);
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.rating-item .client-name {
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.rating-item .rating-stars {
+    color: var(--admin-accent);
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.rating-item .rating-comment {
+    color: #94a3b8;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+/* Stats cards on dashboard */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 146, 60, 0.1));
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+}
+
+.stat-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+}
+
+.stat-value {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--admin-accent);
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    color: #94a3b8;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* Admin action buttons */
+.btn-admin {
+    background: linear-gradient(135deg, var(--admin-accent), var(--admin-accent-secondary));
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-admin::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-admin:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-admin:hover {
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.6);
+    transform: translateY(-2px);
+}
+
+/* Section dividers */
+.admin-section {
+    margin-bottom: 40px;
+}
+
+.admin-section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-section-title::before {
+    content: '';
+    width: 4px;
+    height: 28px;
+    background: linear-gradient(to bottom, var(--admin-accent), var(--admin-accent-secondary));
+    border-radius: 2px;
+}
+
+/* Empty states */
+.admin-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #94a3b8;
+}
+
+.admin-empty-state-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.admin-empty-state h3 {
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .admin-booking-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .slot-row {
+        flex-direction: column;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Loading states */
+.admin-loading {
+    text-align: center;
+    padding: 40px;
+    color: #94a3b8;
+}
+
+.admin-spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 16px;
+    border: 4px solid rgba(245, 158, 11, 0.2);
+    border-top-color: var(--admin-accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Success/Error messages */
+.admin-message {
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-message.success {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #10b981;
+}
+
+.admin-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+}
+
+/* Table styling for admin */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.admin-table th {
+    background: rgba(30, 33, 57, 0.8);
+    color: var(--admin-accent);
+    padding: 16px;
+    text-align: left;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    border-bottom: 2px solid rgba(245, 158, 11, 0.3);
+}
+
+.admin-table td {
+    padding: 16px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    color: #ffffff;
+}
+
+.admin-table tr:hover {
+    background: rgba(30, 33, 57, 0.4);
 }

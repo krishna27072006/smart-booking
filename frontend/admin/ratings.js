@@ -1,70 +1,132 @@
-const API_BASE = "http://127.0.0.1:5000";
+// ============================================
+// ADMIN RATINGS - View Customer Feedback
+// ============================================
 
-// ❗ DO NOT redeclare admin
-// admin is already created in dashboard.js
-if (!window.admin) {
-  window.location.href = "../login.html";
-}
+// API_BASE is already defined in admin-common.js
 
+// Load ratings
 async function loadRatings() {
-  const container = document.getElementById("ratings-container");
-  container.innerHTML = "<p>Loading ratings...</p>";
+    const container = document.getElementById("ratings-container");
 
-  try {
-    const res = await fetch(
-      `${API_BASE}/api/admin/bookings?admin_id=${window.admin.id}`
-    );
-
-    const data = await res.json();
-
-    const rated = data.filter(b => b.rating !== null);
-
-    if (rated.length === 0) {
-      container.innerHTML = "<p>No ratings submitted yet</p>";
-      return;
+    if (!container) {
+        console.error("Ratings container not found");
+        return;
     }
 
-    // group by service
-    const grouped = {};
-    rated.forEach(r => {
-      if (!grouped[r.service_name]) {
-        grouped[r.service_name] = [];
-      }
-      grouped[r.service_name].push(r);
-    });
-
-    container.innerHTML = "";
-
-    for (const service in grouped) {
-      const ratings = grouped[service];
-      const avg =
-        ratings.reduce((sum, r) => sum + Number(r.rating), 0) /
-        ratings.length;
-
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <h3>${service}</h3>
-        <p>⭐ Average Rating: ${avg.toFixed(1)} / 5</p>
-        <hr>
-      `;
-
-      ratings.forEach(r => {
-        card.innerHTML += `
-          <p><strong>${r.client_name}</strong></p>
-          <p>⭐ ${r.rating}/5</p>
-          <p>${r.comment || "No comment"}</p>
-          <hr>
+    if (!window.admin) {
+        console.error("Admin not found in session");
+        container.innerHTML = `
+            <div class="admin-empty-state">
+                <div class="admin-empty-state-icon">❌</div>
+                <p>Admin session not found. Please login again.</p>
+            </div>
         `;
-      });
-
-      container.appendChild(card);
+        return;
     }
 
-  } catch (err) {
-    console.error(err);
-    container.innerHTML = "<p>Error loading ratings</p>";
-  }
+    try {
+        console.log("Loading ratings for admin:", window.admin.id);
+        const res = await fetch(`${API_BASE}/api/admin/bookings?admin_id=${window.admin.id}`);
+        
+        if (!res.ok) {
+            throw new Error(`API returned ${res.status}`);
+        }
+        
+        const data = await res.json();
+        console.log("Bookings data loaded:", data);
+
+        const rated = data.filter(b => b.rating !== null && b.rating !== undefined);
+        console.log("Rated bookings:", rated.length);
+
+        if (rated.length === 0) {
+            container.innerHTML = `
+                <div class="admin-empty-state">
+                    <div class="admin-empty-state-icon">⭐</div>
+                    <h3>No Ratings Yet</h3>
+                    <p>Customer ratings will appear here once they rate your services</p>
+                </div>
+            `;
+            return;
+        }
+
+        // Group by service
+        const grouped = {};
+        rated.forEach(r => {
+            const serviceName = r.service_name || "Unknown Service";
+            if (!grouped[serviceName]) {
+                grouped[serviceName] = [];
+            }
+            grouped[serviceName].push(r);
+        });
+
+        container.innerHTML = "";
+
+        for (const service in grouped) {
+            const ratings = grouped[service];
+            const avg = ratings.reduce((sum, r) => sum + Number(r.rating), 0) / ratings.length;
+
+            const card = document.createElement("div");
+            card.className = "admin-rating-card";
+            
+            card.innerHTML = `
+                <div class="rating-header">
+                    <h4>🛠 ${service}</h4>
+                    <div class="average-rating">
+                        ⭐ ${avg.toFixed(1)} / 5.0
+                    </div>
+                </div>
+                <div style="color: #94a3b8; margin-bottom: 20px;">
+                    ${ratings.length} ${ratings.length === 1 ? 'review' : 'reviews'}
+                </div>
+            `;
+
+            // Add individual ratings
+            ratings.forEach(r => {
+                const ratingDiv = document.createElement("div");
+                ratingDiv.className = "rating-item";
+                
+                const stars = "⭐".repeat(Math.round(r.rating));
+                
+                ratingDiv.innerHTML = `
+                    <div class="client-name">👤 ${r.client_name || "Anonymous"}</div>
+                    <div class="rating-stars">${stars} ${r.rating}/5</div>
+                    <div class="rating-comment">${r.comment || "No comment provided"}</div>
+                    <div style="font-size: 12px; color: #64748b; margin-top: 8px;">
+                        ${new Date(r.booking_date).toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric' 
+                        })}
+                    </div>
+                `;
+                
+                card.appendChild(ratingDiv);
+            });
+
+            container.appendChild(card);
+        }
+
+        console.log("Ratings rendered successfully");
+
+    } catch (err) {
+        console.error("Error loading ratings:", err);
+        container.innerHTML = `
+            <div class="admin-empty-state">
+                <div class="admin-empty-state-icon">❌</div>
+                <h3>Error Loading Ratings</h3>
+                <p>Check console for details</p>
+            </div>
+        `;
+    }
 }
 
-document.addEventListener("DOMContentLoaded", loadRatings);
+// Initialize
+if (document.readyState === 'loading') {
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("Ratings page initializing...");
+        loadRatings();
+    });
+} else {
+    console.log("Ratings page initializing (already loaded)...");
+    loadRatings();
+}
