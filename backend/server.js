@@ -2,12 +2,13 @@ const express = require("express");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const pool = require("./db");
+const path = require("path");
+
 
 const app = express();
 app.use(cors({ origin: "*", methods: "GET,POST,PUT,DELETE", allowedHeaders: "Content-Type" }));
 app.use(express.json());
 
-app.get("/", (req, res) => res.send("Smart Booking Backend Running 🚀"));
 
 /* =====================================================
     REGISTER – CLIENT
@@ -308,7 +309,18 @@ app.post("/api/ratings", async (req, res) => {
   res.json({ success: true });
 });
 
+app.use(express.static(path.join(__dirname, "../frontend")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/index.html"));
+});
+
+
 /* =====================================================
     SERVER START
 ===================================================== */
-app.listen(5000, () => console.log("Backend 🚀 http://localhost:5000"));
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Backend 🚀 running on port ${PORT}`);
+});
