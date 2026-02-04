@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Booking - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">Smart Booking</div>
+        <ul class="sidebar-menu">
+            <li>
+                <a href="#" class="active" onclick="showPage('home'); updateActiveNav(event); return false;">
+                    <span class="icon">🏠</span>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showPage('services'); updateActiveNav(event); return false;">
+                    <span class="icon">🎯</span>
+                    <span>Services</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showPage('my-bookings'); updateActiveNav(event); return false;">
+                    <span class="icon">📅</span>
+                    <span>My Bookings</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="logout(); return false;">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <div class="topbar">
+            <div class="topbar-greeting">
+                <h2 id="greeting-text">Welcome Back! 👋</h2>
+                <p id="user-email">Loading...</p>
+            </div>
+            <div class="topbar-actions">
+                <div class="user-avatar" id="user-avatar">U</div>
+            </div>
+        </div>
+
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <div class="hero-dashboard">
+                <div class="hero-content">
+                    <h1>Smart Appointment Booking System</h1>
+                    <p>Experience seamless booking with real-time availability, smart scheduling, and instant confirmations. Your time matters.</p>
+                    <button class="btn btn-primary" onclick="showPage('services'); updateActiveNav(document.querySelectorAll('.sidebar-menu a')[1])">
+                        Explore Services →
+                    </button>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Booking</h3>
+                    <p>Book appointments in seconds with our streamlined interface and real-time slot availability</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>No Conflicts</h3>
+                    <p>Advanced algorithm prevents double bookings and scheduling conflicts automatically</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Rating System</h3>
+                    <p>Help the community by rating service quality and punctuality after each appointment</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Track Everything</h3>
+                    <p>Manage all your bookings, view history, and track upcoming appointments in one place</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Page -->
+        <div id="services" class="page">
+            <h1 class="page-title">Available Services</h1>
+            <p class="page-subtitle">Browse and book from our curated selection of professional services</p>
+            <div id="services-grid" class="services-grid"></div>
+        </div>
+
+        <!-- Book Appointment Page -->
+        <div id="book" class="page">
+            <h1 class="page-title">Book Appointment</h1>
+            <p class="page-subtitle">Complete the steps below to schedule your appointment</p>
+
+            <!-- Service Selection -->
+            <div class="booking-section">
+                <h3>1️⃣ Choose Service</h3>
+                <select id="service-select" class="form-control" onchange="loadTimeSlots()">
+                    <option value="">Select a service...</option>
+                </select>
+            </div>
+
+            <!-- Date Selection -->
+            <div class="booking-section">
+                <h3>2️⃣ Pick Date</h3>
+                <input type="date" id="date-select" class="form-control" onchange="loadTimeSlots()">
+            </div>
+
+            <!-- Time Slot Selection -->
+            <div class="booking-section">
+                <h3>3️⃣ Select Time</h3>
+                <div id="time-slots-grid" class="time-slots-grid">
+                    <p style="color: var(--text-secondary); grid-column: 1/-1; text-align: center;">
+                        Please select service and date first
+                    </p>
+                </div>
+            </div>
+
+            <!-- Customer Information -->
+            <div class="booking-section" id="customer-form-section" style="display: none;">
+                <h3>4️⃣ Your Details</h3>
+                <form id="booking-form" onsubmit="submitBooking(event)">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="customer-name" class="form-control" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" id="customer-email" class="form-control" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" id="customer-phone" class="form-control" placeholder="+1 234 567 8900" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Notes (Optional)</label>
+                        <textarea id="customer-notes" class="form-control" placeholder="Any special requirements or notes..." rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Confirm Booking ✓</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- My Bookings Page -->
+        <div id="my-bookings" class="page">
+            <h1 class="page-title">My Bookings</h1>
+            <p class="page-subtitle">Manage and track all your appointments</p>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="filterBookings('all')">All</button>
+                <button class="tab-btn" onclick="filterBookings('pending')">Pending</button>
+                <button class="tab-btn" onclick="filterBookings('upcoming')">Upcoming</button>
+                <button class="tab-btn" onclick="filterBookings('completed')">Completed</button>
+                <button class="tab-btn" onclick="filterBookings('cancelled')">Cancelled</button>
+            </div>
+
+            <div id="bookings-list" class="bookings-list"></div>
+        </div>
+    </main>
+
+    <!-- Rating Modal -->
+    <div id="rating-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRatingModal()">&times;</span>
+            <h2>Rate Your Experience</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 24px;">
+                Help others by sharing your feedback
+            </p>
+
+            <form id="rating-form" onsubmit="submitRating(event)">
+                <input type="hidden" id="rating-booking-id">
+
+                <label style="display: block; text-align: center; font-weight: 600; margin-bottom: 12px; color: var(--text-secondary);">
+                    How was your experience?
+                </label>
+                <div class="star-rating" id="overall-rating"></div>
+
+                <div class="form-group">
+                    <label>Your Feedback (Optional)</label>
+                    <textarea id="rating-comment" class="form-control" placeholder="Share your thoughts about the service..." rows="4"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Rating ⭐</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content" style="text-align: center;">
+            <span class="close" onclick="closeSuccessModal()">&times;</span>
+            <div class="success-icon">✅</div>
+            <h2 id="success-title" style="margin-bottom: 12px;">Success!</h2>
+            <p id="success-message" style="color: var(--text-secondary); margin-bottom: 24px;"></p>
+            <button class="btn btn-primary" onclick="closeSuccessModal()">Got it!</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

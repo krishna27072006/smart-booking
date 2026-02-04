@@ -309,11 +309,12 @@ app.post("/api/ratings", async (req, res) => {
   res.json({ success: true });
 });
 
-app.use(express.static(path.join(__dirname, "../frontend")));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/index.html"));
+  res.sendFile(path.join(__dirname, "public/index.html"));
 });
+
 
 
 /* =====================================================
