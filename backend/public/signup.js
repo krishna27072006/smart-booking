@@ -1,4 +1,4 @@
-const API_BASE = "http://127.0.0.1:5000";
+const API_BASE = "";
 
 document.getElementById("clientSignupForm").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ document.getElementById("clientSignupForm").addEventListener("submit", async (e)
     btnText.innerHTML = 'Creating Account<span class="spinner"></span>';
 
     try {
-        const res = await fetch(`${API_BASE}/api/register-client`, {
+        const res = await fetch("/api/register-client", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, email, phone, city, password })
