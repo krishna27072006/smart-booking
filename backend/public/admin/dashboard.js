@@ -14,7 +14,8 @@ async function loadDashboardStats() {
         console.log("Loading dashboard stats for admin:", window.admin.id);
 
         // Load services count
-        const servicesRes = await fetch(`${API_BASE}/api/admin/services?admin_id=${window.admin.id}`);
+        const servicesRes = await fetch(`/api/admin/services?admin_id=${window.admin.id}`);
+
         
         if (!servicesRes.ok) {
             throw new Error(`Services API failed: ${servicesRes.status}`);
@@ -25,7 +26,7 @@ async function loadDashboardStats() {
         document.getElementById("total-services").textContent = services.length;
 
         // Load bookings
-        const bookingsRes = await fetch(`${API_BASE}/api/admin/bookings?admin_id=${window.admin.id}`);
+        const bookingsRes = await fetch(`/api/admin/bookings?admin_id=${window.admin.id}`);
         
         if (!bookingsRes.ok) {
             throw new Error(`Bookings API failed: ${bookingsRes.status}`);

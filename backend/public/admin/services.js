@@ -26,7 +26,7 @@ async function loadAdminServices() {
 
     try {
         console.log("Loading services for admin:", window.admin.id);
-        const res = await fetch(`${API_BASE}/api/admin/services?admin_id=${window.admin.id}`);
+        const res = await fetch(`/api/admin/services?admin_id=${window.admin.id}`);
         
         if (!res.ok) {
             throw new Error(`API returned ${res.status}`);
@@ -96,7 +96,7 @@ async function handleAddService(e) {
     try {
         console.log("Adding service:", { service_name, price, admin_id: window.admin.id });
         
-        const res = await fetch(`${API_BASE}/api/admin/services`, {
+        const res = await fetch(`/api/admin/services`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

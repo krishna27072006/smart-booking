@@ -28,7 +28,8 @@ async function loadAdminBookings() {
 
     try {
         console.log("Loading bookings for admin:", window.admin.id);
-        const res = await fetch(`${API_BASE}/api/admin/bookings?admin_id=${window.admin.id}`);
+        const res = await fetch(`/api/admin/bookings?admin_id=${window.admin.id}`);
+
         
         if (!res.ok) {
             throw new Error(`API returned ${res.status}`);
@@ -169,7 +170,7 @@ async function updateBookingStatus(id, status) {
     try {
         console.log("Updating booking:", id, "to", status);
         
-        const res = await fetch(`${API_BASE}/api/bookings/update-status/${id}`, {
+        const res = await fetch(`/api/bookings/update-status/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ status })

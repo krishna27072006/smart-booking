@@ -16,7 +16,8 @@ async function loadServicesForSlots() {
 
     try {
         console.log("Loading services for slots dropdown...");
-        const res = await fetch(`${API_BASE}/api/admin/services?admin_id=${window.admin.id}`);
+        const res = await fetch(`/api/admin/services?admin_id=${window.admin.id}`);
+
         
         if (!res.ok) {
             throw new Error(`API returned ${res.status}`);
@@ -120,7 +121,7 @@ async function addSlots(e) {
         
         // Add each slot to the database
         for (const slot of slots) {
-            const res = await fetch(`${API_BASE}/api/admin/slots`, {
+            const res = await fetch(`/api/admin/slots`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
